@@ -1,37 +1,36 @@
-export const FormLayout = ({
-	email,
-	password,
-	retryPassword,
-	error,
-	onSubmit,
-	onEmailChange,
-	updateState,
-}) => (
+export const FormLayout = ({ state, errors, onSubmit, onChange }) => (
 	<form onSubmit={onSubmit}>
-		{error && <div>{error}</div>}
-		<input
-			name="email"
-			type="email"
-			placeholder="Почта"
-			value={email}
-			onChange={({ target }) => onEmailChange(target.value)}
-		/>
-		<input
-			name="password"
-			type="password"
-			placeholder="Пароль"
-			value={password}
-			onChange={({ target }) => updateState("password", target.value)}
-		/>
-		<input
-			name="retry-password"
-			type="password"
-			placeholder="Повторите пароль"
-			value={retryPassword}
-			onChange={({ target }) =>
-				updateState("retryPassword", target.value)
-			}
-		/>
+		<div>
+			<input
+				name="email"
+				type="email"
+				placeholder="Почта"
+				value={state.email}
+				onChange={({ target }) => onChange(target)}
+			/>
+			{errors.email && <span>{errors.email}</span>}
+		</div>
+		<div>
+			<input
+				name="password"
+				type="password"
+				placeholder="Пароль"
+				value={state.password}
+				onChange={({ target }) => onChange(target)}
+			/>
+			{errors.password && <span>{errors.password}</span>}
+		</div>
+		<div>
+			<input
+				name="retryPassword"
+				type="password"
+				placeholder="Повторите пароль"
+				value={state.retryPassword}
+				onChange={({ target }) => onChange(target)}
+			/>
+			{errors.retryPassword && <span>{errors.retryPassword}</span>}
+		</div>
+
 		<button type="submit">Зарегистрироваться</button>
 	</form>
 );

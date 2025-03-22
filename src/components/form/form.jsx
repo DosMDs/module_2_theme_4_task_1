@@ -1,36 +1,31 @@
+import { useState } from "react";
 import { useStore } from "../../hooks";
-import { checkEmail } from "../../utils";
 import { FormLayout } from "./form-layout";
+import { validate } from "../../utils/validate";
+import { BASIC_FORM_SCHEME } from "../../constants";
 
 export const Form = () => {
 	const { getState, updateState } = useStore();
+	const [errors, setErrors] = useState({});
 
-	const { email, password, retryPassword, error } = getState();
+	const state = getState();
 
 	const onSubmit = (event) => {
 		event.preventDefault();
 	};
 
-	const onEmailChange = (value) => {
-		let newError = null;
-
-		if (!checkEmail(value)) {
-			newError =
-				"Неверный email. Допустимые символы: буквы, цифры и нижнее подчеркивание.";
-		}
-		updateState({ email: value });
-		updateState({ error: newError });
+	const onChange = (target) => {
+		updateState(target.name, target.value);
+		const newState = { ...state, [target.name]: target.value };
+		setErrors(validate(newState, BASIC_FORM_SCHEME));
 	};
 
 	return (
 		<FormLayout
-			email={email}
-			password={password}
-			retryPassword={retryPassword}
-			error={error}
+			state={state}
+			errors={errors}
 			onSubmit={onSubmit}
-			onEmailChange={onEmailChange}
-			updateState={updateState}
+			onChange={onChange}
 		/>
 	);
 };

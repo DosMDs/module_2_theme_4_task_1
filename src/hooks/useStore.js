@@ -4,7 +4,6 @@ const initialState = {
 	email: "",
 	password: "",
 	retryPassword: "",
-	error: null,
 };
 
 export const useStore = () => {
