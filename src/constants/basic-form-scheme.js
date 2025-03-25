@@ -1,33 +1,17 @@
-export const BASIC_FORM_SCHEME = {
-	email: {
-		required: {
-			message: "Поле обязательно для заполнения.",
-		},
-		pattern: {
-			param: /\S+@\S+\.\S+/,
-			message: "Неправильный формат email адреса.",
-		},
-	},
-	password: {
-		required: {
-			message: "Поле обязательно для заполнения.",
-		},
-		min: {
-			param: 6,
-			message: "Пароль должен быть не менее 6 символов.",
-		},
-		max: {
-			param: 30,
-			message: "Пароль должен быть не более 30 символов.",
-		},
-	},
-	retryPassword: {
-		required: {
-			message: "Поле обязательно для заполнения.",
-		},
-		equalTo: {
-			param: "password",
-			message: "Пароли не совпадают.",
-		},
-	},
-};
+import * as yup from "yup";
+
+export const BASIC_FORM_SCHEME = yup.object().shape({
+	email: yup
+		.string()
+		.required("Поле обязательно для заполнения.")
+		.email("Неправильный формат email адреса."),
+	password: yup
+		.string()
+		.required("Поле обязательно для заполнения.")
+		.min(6, "Пароль должен быть не менее 6 символов.")
+		.max(30, "Пароль должен быть не более 30 символов."),
+	retryPassword: yup
+		.string()
+		.required("Поле обязательно для заполнения.")
+		.oneOf([yup.ref("password")], "Пароли не совпадают."),
+});

@@ -1,32 +1,27 @@
-import { useState } from "react";
-import { useStore } from "../../hooks";
-import { FormLayout } from "./form-layout";
-import { validate } from "../../utils/validate";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
 import { BASIC_FORM_SCHEME } from "../../constants";
+import { FormLayout } from "./form-layout";
 
 export const Form = () => {
-	const { getState, updateState } = useStore();
-	const [errors, setErrors] = useState({});
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		defaultValues: { email: "", password: "", retryPassword: "" },
+		resolver: yupResolver(BASIC_FORM_SCHEME),
+	});
 
-	const state = getState();
-
-	const onSubmit = (event) => {
-		event.preventDefault();
-		console.log({ ...state });
-	};
-
-	const onChange = (target) => {
-		updateState(target.name, target.value);
-		const newState = { ...state, [target.name]: target.value };
-		setErrors(validate(newState, BASIC_FORM_SCHEME));
+	const sendData = (formData) => {
+		console.log(formData);
 	};
 
 	return (
 		<FormLayout
-			state={state}
+			register={register}
 			errors={errors}
-			onSubmit={onSubmit}
-			onChange={onChange}
+			handleSubmit={handleSubmit(sendData)}
 		/>
 	);
 };

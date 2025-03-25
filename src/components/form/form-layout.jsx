@@ -1,15 +1,14 @@
 import style from "./form.module.css";
 
-export const FormLayout = ({ state, errors, onSubmit, onChange }) => (
-	<form className={style.form} onSubmit={onSubmit}>
+export const FormLayout = ({ register, errors, handleSubmit }) => (
+	<form className={style.form} onSubmit={handleSubmit}>
 		<div>
 			<input
 				name="email"
 				type="email"
 				placeholder="Почта"
 				className={style.input}
-				value={state.email}
-				onChange={({ target }) => onChange(target)}
+				{...register("email")}
 			/>
 			{errors.email && (
 				<span className={style.error}>{errors.email}</span>
@@ -21,8 +20,7 @@ export const FormLayout = ({ state, errors, onSubmit, onChange }) => (
 				type="password"
 				placeholder="Пароль"
 				className={style.input}
-				value={state.password}
-				onChange={({ target }) => onChange(target)}
+				{...register("password")}
 			/>
 			{errors.password && (
 				<span className={style.error}>{errors.password}</span>
@@ -34,8 +32,7 @@ export const FormLayout = ({ state, errors, onSubmit, onChange }) => (
 				type="password"
 				placeholder="Повторите пароль"
 				className={style.input}
-				value={state.retryPassword}
-				onChange={({ target }) => onChange(target)}
+				{...register("retryPassword")}
 			/>
 			{errors.retryPassword && (
 				<span className={style.error}>{errors.retryPassword}</span>
