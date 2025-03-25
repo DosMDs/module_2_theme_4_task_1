@@ -12,6 +12,7 @@ export const Form = () => {
 
 	const onSubmit = (event) => {
 		event.preventDefault();
+		console.log({ ...state });
 	};
 
 	const onChange = (target) => {
