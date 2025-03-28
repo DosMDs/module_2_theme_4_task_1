@@ -1,7 +1,7 @@
 import style from "./form.module.css";
 
 export const FormLayout = ({ register, errors, handleSubmit }) => (
-	<form className={style.form} onSubmit={handleSubmit}>
+	<form className={style.form} onSubmit={handleSubmit} noValidate>
 		<div>
 			<input
 				name="email"
@@ -11,7 +11,7 @@ export const FormLayout = ({ register, errors, handleSubmit }) => (
 				{...register("email")}
 			/>
 			{errors.email && (
-				<span className={style.error}>{errors.email}</span>
+				<span className={style.error}>{errors.email.message}</span>
 			)}
 		</div>
 		<div>
@@ -23,7 +23,7 @@ export const FormLayout = ({ register, errors, handleSubmit }) => (
 				{...register("password")}
 			/>
 			{errors.password && (
-				<span className={style.error}>{errors.password}</span>
+				<span className={style.error}>{errors.password.message}</span>
 			)}
 		</div>
 		<div>
@@ -35,7 +35,9 @@ export const FormLayout = ({ register, errors, handleSubmit }) => (
 				{...register("retryPassword")}
 			/>
 			{errors.retryPassword && (
-				<span className={style.error}>{errors.retryPassword}</span>
+				<span className={style.error}>
+					{errors.retryPassword.message}
+				</span>
 			)}
 		</div>
 
