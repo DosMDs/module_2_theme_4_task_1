@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { BASIC_FORM_SCHEME } from "../../constants";
+import { formScheme } from "../../schemes";
 import { FormLayout } from "./form-layout";
 
 export const Form = () => {
@@ -10,7 +10,7 @@ export const Form = () => {
 		formState: { errors },
 	} = useForm({
 		defaultValues: { email: "", password: "", retryPassword: "" },
-		resolver: yupResolver(BASIC_FORM_SCHEME),
+		resolver: yupResolver(formScheme),
 	});
 
 	const sendData = (formData) => {

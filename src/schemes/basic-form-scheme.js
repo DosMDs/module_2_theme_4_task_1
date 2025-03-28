@@ -1,6 +1,6 @@
 import * as yup from "yup";
 
-export const BASIC_FORM_SCHEME = yup.object().shape({
+export const formScheme = yup.object().shape({
 	email: yup
 		.string()
 		.required("Поле обязательно для заполнения.")
